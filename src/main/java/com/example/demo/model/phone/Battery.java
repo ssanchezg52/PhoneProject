@@ -19,7 +19,7 @@ public class Battery{
 
 	public Battery(Processor processor, Screen screen) {
 		super();
-		this.mAhNumber = calculateBatery(processor,screen)+UnitOfMeasureAdapter.getUnitOfMeasure(TypeUnitOfMeasure.BATTERY);
+		this.mAhNumber = String.valueOf(calculateBatery(processor,screen))+TypeUnitOfMeasure.BATTERY;
 	}
 	
 	public int calculateBatery(Processor processor, Screen screen) {

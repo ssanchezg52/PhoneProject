@@ -52,7 +52,6 @@ public class Phone {
 		private final int MAX_CORE = 8;
 		private final int MIN_SCREEN = 4;
 		private final int MAX_SCREEN = 7;
-		private final String CURRENCY_TYPE = "€";
 		
 		public BuilderPhone(String brand, String model) {
 			super();
@@ -64,7 +63,7 @@ public class Phone {
 			this.batery = new Battery(this.processor, this.screen);
 			this.antutu = AntutuCalculator.calculateAntutu(this.processor, this.ram);
 			PriceCalculator prizeCalculator = new PriceCalculator(this.ram, this.processor, this.screen, this.batery);
-			this.price = prizeCalculator.calculatePrize()+CURRENCY_TYPE;
+			this.price = prizeCalculator.calculatePrize()+TypeUnitOfMeasure.PRECIO;
 		}
 		
 		public Phone builder() {

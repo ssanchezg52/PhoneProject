@@ -14,15 +14,13 @@ public class Processor{
 	
 	private int coreNumber;
 	private String clockRate;
-	@Transient
-	private final String UNIT_MEASURE_PRIZE = "Ghz";
 	
 	public Processor() {
 		super();
 	}
 	public Processor(int coreNumber) {
 		this.coreNumber = coreNumber;
-		this.clockRate = calculateVelocity()+UNIT_MEASURE_PRIZE;
+		this.clockRate = calculateVelocity()+TypeUnitOfMeasure.PROCCESOR;
 	}	
 	private String calculateVelocity() {
 		DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -70,7 +68,7 @@ public class Processor{
 	}
 	@Override
 	public String toString() {
-		return "[coreNumber=" + coreNumber + ", velocity=" + clockRate + UNIT_MEASURE_PRIZE+"]";
+		return "[coreNumber=" + coreNumber + ", velocity=" + clockRate + TypeUnitOfMeasure.PROCCESOR+"]";
 	}
 	
 }

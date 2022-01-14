@@ -11,15 +11,13 @@ import javax.persistence.Transient;
 public class Screen{
 	@Column(name = "screen")
 	private String screenSize;
-	@Transient
-	private final String UNIT_MEASURE_SCREEN = "''";
 	
 	public Screen() {
 		super();
 	}
 	public Screen(float screenSize) {
 		super();
-		this.screenSize = convertNumberTwoDecimals(screenSize)+UNIT_MEASURE_SCREEN;
+		this.screenSize = convertNumberTwoDecimals(screenSize)+TypeUnitOfMeasure.SCREEN;
 	}
 	private String convertNumberTwoDecimals(float screenSizeConcrete) {
 		DecimalFormat decimalFormat = new DecimalFormat("#.##");
@@ -29,9 +27,6 @@ public class Screen{
 	public float getScreenSize() {
 		String[] split = screenSize.split("'");
 		return Float.valueOf(split[0]);
-	}
-	public void setScreenSize(float screenSize) {
-		this.screenSize = screenSize+UNIT_MEASURE_SCREEN;
 	}
 	
 	@Override
