@@ -1,6 +1,6 @@
 package com.example.demo.model.phone;
 
-public class CalculatorAntutu{
+public class AntutuCalculator{
 	
 	private static final int MULTIPLIER = 12000;
 

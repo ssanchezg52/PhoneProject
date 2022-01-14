@@ -3,28 +3,21 @@ package com.example.demo.model.ObjectMother;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.example.demo.model.phone.Brand;
-import com.example.demo.model.phone.BuilderPhone;
-import com.example.demo.model.phone.Model;
 import com.example.demo.model.phone.Phone;
+import com.example.demo.model.phone.Phone.BuilderPhone;
 
 public class PhoneMother {
 	
-	private static LinkedList<Brand> brand = new LinkedList<>(List.of(new Brand("Samsung") ,new Brand("Apple")
-			,new Brand("Motorola"),new Brand("Nokia"), new Brand("Huawei"), new Brand("Oppo"),new Brand("Honor")
-			,new Brand("TCL"),new Brand("Alcatel"),new Brand("Doogee"),new Brand("Realme"),new Brand("Cubot")
-			,new Brand("Oukitel"),new Brand("Ulefone"),new Brand("Elephone"),new Brand("Google"),new Brand("OnePlus")
-			,new Brand("Nubia"),new Brand("Vivo"), new Brand("Meizu"), new Brand("Mywigo"), new Brand("Sony"),
-			new Brand("Umidigi"), new Brand("Vernee"), new Brand("Wiko"), new Brand("ZTE"),new Brand("Lenovo")));
-	private static LinkedList<Model> model = new LinkedList<>(List.of(new Model("Edge x30"), new Model("Note 10 Pro"),
-			new Model("GT Neo 2"), new Model("Nord 2"), new Model("Mate 20X"), new Model("11T"), new Model("iPhone 13")
-			, new Model("F3"), new Model("Edge"), new Model("Find N"), new Model("Pixel 2 XL"), new Model("10 PRO")
-			, new Model("iQOO 8"), new Model("X3 NFC"), new Model("11 Lite"), new Model("8i"), new Model("9AT")
-			, new Model("Pixel 3A"), new Model("GT Neo 2"), new Model("C21Y"), new Model("Narzo 50i"), new Model("20SE")
-			, new Model("Pixel 3"), new Model("Civi"), new Model("P40 Lite"), new Model("GT Master"), new Model("iQOO 7")
-			, new Model("Reno 6"), new Model("Galaxy S20"), new Model("K40"), new Model("9RT"), new Model("F2 PRO")
-			, new Model("X60"), new Model("Galaxy S21"), new Model("Magic 6"), new Model("9R"), new Model("Z30")
-			, new Model("G100")));
+	private static LinkedList<String> brand = new LinkedList<>(List.of("Samsung" ,"Apple"
+			,"Motorola","Nokia", "Huawei", "Oppo","Honor","TCL","Alcatel","Doogee","Realme"
+			,"Cubot","Oukitel","Ulefone","Elephone","Google","OnePlus","Nubia","Vivo"
+			, "Meizu", "Mywigo", "Sony","Umidigi", "Vernee", "Wiko", "ZTE","Lenovo"));
+	private static LinkedList<String> model = new LinkedList<>(List.of("Edge x30", "Note 10 Pro",
+			"GT Neo 2", "Nord 2", "Mate 20X", "11T", "iPhone 13", "F3", "Edge", "Find N"
+			, "Pixel 2 XL", "10 PRO", "iQOO 8","X3 NFC", "11 Lite", "8i", "9AT"
+			, "Pixel 3A", "GT Neo 2","C21Y", "Narzo 50i", "20SE", "Pixel 3", "Civi", "P40 Lite"
+			, "GT Master", "iQOO 7", "Reno 6", "Galaxy S20", "K40", "9RT", "F2 PRO", "X60"
+			, "Galaxy S21", "Magic 6", "9R","Z30", "G100"));
 	public static LinkedList<Phone> getPhoneList() {
 		LinkedList<Phone> phoneList = new LinkedList<>();
 		brand.forEach((concreteMark)->{
@@ -34,14 +27,5 @@ public class PhoneMother {
 		});
 		return phoneList;
 	}
-	
-	public static LinkedList<Brand> getBrandList() {
-		return brand;
-	}
-	
-	public static LinkedList<Model> getModelList() {
-		return model;
-	}
-	
 
 }

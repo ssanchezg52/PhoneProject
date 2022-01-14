@@ -11,8 +11,6 @@ public class Battery{
 	@Column(name = "battery")
 	private String mAhNumber;
 	@Transient
-	private final String UNIT_MEASURE_BATTERY = "mAh";
-	@Transient
 	private final int MULTIPLIER = 190;
 	
 	public Battery() {
@@ -21,7 +19,7 @@ public class Battery{
 
 	public Battery(Processor processor, Screen screen) {
 		super();
-		this.mAhNumber = calculateBatery(processor,screen)+UNIT_MEASURE_BATTERY;
+		this.mAhNumber = calculateBatery(processor,screen)+UnitOfMeasureAdapter.getUnitOfMeasure(TypeUnitOfMeasure.BATTERY);
 	}
 	
 	public int calculateBatery(Processor processor, Screen screen) {
