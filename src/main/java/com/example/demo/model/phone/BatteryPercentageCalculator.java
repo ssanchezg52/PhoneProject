@@ -15,10 +15,10 @@ import com.example.demo.IntervalBattery.ThirdInterval;
 public class BatteryPercentageCalculator {
 	
 	ArrayList<Handler> intervalListBatery;
-	private Battery batery;
+	private Long batery;
 	Handler initial;
 	
-	public BatteryPercentageCalculator(Battery batery) {
+	public BatteryPercentageCalculator(Long batery) {
 		this.batery = batery;
 		intervalListBatery = new ArrayList<Handler>();
 		fillArrayIntervals();

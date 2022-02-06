@@ -4,17 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import com.example.demo.model.phone.Phone;
 import com.example.demo.model.phone.Phone.BuilderPhone;
+import com.example.demo.model.phone.Processor;
 
 
 class PhoneTest {
-	
-//	@Test
-//	void testMain() {
-//		LinkedList<Phone> phoneList = PhoneMother.getPhoneList();
-//		phoneList.forEach((phone)->{
-//			System.err.println(phone);
-//		});
-//	}
 
 	@Test
 	void test() {

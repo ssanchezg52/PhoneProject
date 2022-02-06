@@ -1,5 +1,6 @@
-package com.example.demo.model.phone;
+	package com.example.demo.model.phone;
 
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Column;
@@ -8,46 +9,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.example.demo.model.history.HistoricalPrice;
 import com.example.demo.utiles.Utiles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Phone {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	@Column(name = "brand")
+	private Long id;
 	private String brand;
-	@Column(name = "model")
 	private String model;
 	@Embedded
 	@Column(nullable = false)
 	private Processor processor;
-	@Embedded
 	@Column(nullable = false)
-	private Ram ram;
-	@Embedded
+	private Float ram;
 	@Column(nullable = false)
-	private Screen screen;
-	@Embedded
+	private Float screen;
 	@Column(nullable = false)
-	private Battery batery;
+	private Long battery;
 	@Column(nullable = false)
-	private long antutu;
+	private Long antutu;
 	@Column(nullable = false)
-	private String price;
-	
+	private Float prize;
+	@OneToMany(mappedBy = "phone")
+	private List<HistoricalPrice> priceHistory;
 	public static class BuilderPhone {
 		private String brand;
 		private String model;
 		private Processor processor;
-		private Ram ram;
-		private Screen screen;
-		private Battery batery;
-		private long antutu;
-		private String price;
+		private Float ram;
+		private Float screen;
+		private Long batery;
+		private Long antutu;
+		private Float prize;
 		private final int MIN_CORE = 1;
 		private final int MAX_CORE = 8;
 		private final int MIN_SCREEN = 4;
@@ -58,12 +56,12 @@ public class Phone {
 			this.brand = brand;
 			this.model = model;
 			this.processor = new Processor(Utiles.getRandomWholeNumber(MIN_CORE, MAX_CORE));
-			this.ram = new Ram(this.processor.getCoreNumber());
-			this.screen = new Screen(Utiles.getRandomDecimalNumber(MIN_SCREEN, MAX_SCREEN));
-			this.batery = new Battery(this.processor, this.screen);
+			this.ram = RamCalculator.calculateCapacity(this.processor.getCoreNumber());
+			this.screen = Utiles.convertNumberTwoDecimals(Utiles.getRandomDecimalNumber(MIN_SCREEN, MAX_SCREEN));
+			this.batery = BatteryCalculator.calculateBatery(this.processor, this.screen);
 			this.antutu = AntutuCalculator.calculateAntutu(this.processor, this.ram);
 			PriceCalculator prizeCalculator = new PriceCalculator(this.ram, this.processor, this.screen, this.batery);
-			this.price = prizeCalculator.calculatePrize()+TypeUnitOfMeasure.PRECIO;
+			this.prize = prizeCalculator.calculatePrize();
 		}
 		
 		public Phone builder() {
@@ -82,24 +80,24 @@ public class Phone {
 			return processor;
 		}
 
-		public Ram getRam() {
+		public Float getRam() {
 			return ram;
 		}
 
-		public Screen getScreen() {
+		public Float getScreen() {
 			return screen;
 		}
 
-		public Battery getBatery() {
+		public Long getBatery() {
 			return batery;
 		}
 		
-		public long getAntutu() {
+		public Long getAntutu() {
 			return antutu;
 		}
 
-		public String getPrize() {
-			return price;
+		public Float getPrize() {
+			return prize;
 		}
 	}
 	
@@ -109,55 +107,99 @@ public class Phone {
 		this.processor = builderPhone.getProcessor();
 		this.ram = builderPhone.getRam();
 		this.screen = builderPhone.getScreen();
-		this.batery = builderPhone.getBatery();
+		this.battery = builderPhone.getBatery();
 		this.antutu = builderPhone.getAntutu();
-		this.price = builderPhone.getPrize();
+		this.prize = builderPhone.getPrize();
 	}
 
 	public Phone() {
 		super();
+	}
+	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getBrand() {
 		return brand;
 	}
 
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
 	public String getModel() {
 		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public Processor getProcessor() {
 		return processor;
 	}
 
-	public Ram getRam() {
-		return ram;
+	public void setProcessor(Processor processor) {
+		this.processor = processor;
 	}
 	
-	public Screen getScreen() {
+	public Float getRam() {
+		return ram;
+	}
+
+	public void setRam(Float ram) {
+		this.ram = ram;
+	}
+
+	public Float getScreen() {
 		return screen;
 	}
 
-	public Battery getBatery() {
-		return batery;
+	public void setScreen(Float screen) {
+		this.screen = screen;
+	}
+	
+	public Long getBattery() {
+		return battery;
 	}
 
-	public long getAntutu() {
+	public void setBatery(Long batery) {
+		this.battery = batery;
+	}
+
+	public Long getAntutu() {
 		return antutu;
 	}
-	
-	public String getPrizeWithCurrencyType() {
-		return this.price;
+
+	public void setAntutu(Long antutu) {
+		this.antutu = antutu;
 	}
 
-	public float getPrizeWithoutCurrencyType() {
-		String replace = this.price.replace("€", "");
-		return Float.valueOf(replace);
+	public Float getPrize() {
+		return this.prize;
 	}
 	
+	public void setPrice(Float price) {
+		this.prize = price;
+	}	
+	
+	@JsonIgnore
+	public List<HistoricalPrice> getPriceHistory() {
+		return priceHistory;
+	}
+	
+	public void setPriceHistory(List<HistoricalPrice> priceHistory) {
+		this.priceHistory = priceHistory;
+	}
+
 	@Override
 	public int hashCode() {
-		return Objects.hash(antutu, batery, brand, id, model, price, processor, ram, screen);
+		return Objects.hash(antutu, battery, brand, id, model, prize, processor, ram, screen);
 	}
 
 	@Override
@@ -169,8 +211,8 @@ public class Phone {
 		if (getClass() != obj.getClass())
 			return false;
 		Phone other = (Phone) obj;
-		return antutu == other.antutu && Objects.equals(batery, other.batery) && Objects.equals(brand, other.brand)
-				&& id == other.id && Objects.equals(model, other.model) && Objects.equals(price, other.price)
+		return antutu == other.antutu && Objects.equals(battery, other.battery) && Objects.equals(brand, other.brand)
+				&& id == other.id && Objects.equals(model, other.model) && Objects.equals(prize, other.prize)
 				&& Objects.equals(processor, other.processor) && Objects.equals(ram, other.ram)
 				&& Objects.equals(screen, other.screen);
 	}
@@ -178,7 +220,7 @@ public class Phone {
 	@Override
 	public String toString() {
 		return "Phone [id=" + id + ", brand=" + brand + ", model=" + model + ", processor=" + processor + ", ram=" + ram
-				+ ", screen=" + screen + ", batery=" + batery + ", antutu=" + antutu + ", prize=" + price + "]";
+				+ ", screen=" + screen + ", batery=" + battery + ", antutu=" + antutu + ", prize=" + prize + "]";
 	}
 	
 }

@@ -1,7 +1,5 @@
 package com.example.demo.IntervalBattery;
 
-import com.example.demo.model.phone.Battery;
-
 public abstract class BaseHandler implements Handler {
 	Handler next;
 
@@ -14,9 +12,9 @@ public abstract class BaseHandler implements Handler {
 		next=handler;
 	}
 	@Override
-	public int handle(Battery request) {
+	public int handle(Long battery) {
 		if(next!=null) {
-			return next.handle(request);
+			return next.handle(battery);
 		}
 		return 0;
 	}

@@ -1,15 +1,16 @@
 package com.example.demo.phoneTests;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.example.demo.model.phone.Ram;
+import org.junit.jupiter.api.Test;
+
+import com.example.demo.model.phone.RamCalculator;
 
 class RamTest {
 
 	@Test
 	void test() {
-		Ram ram = new Ram(4);
-		System.out.println(ram.getCapacity());
+		float ram = RamCalculator.calculateCapacity(4);
+		assertEquals(2, ram);
 	}
 }

@@ -1,7 +1,5 @@
 package com.example.demo.IntervalBattery;
 
-import com.example.demo.model.phone.Battery;
-
 public class SecondInterval extends BaseHandler {
 	
 	private final int min = 1000;
@@ -9,11 +7,11 @@ public class SecondInterval extends BaseHandler {
 
 	
 	@Override
-	public int handle(Battery batery) {
-		if (batery.getMAhNumber()>=min && batery.getMAhNumber()<=max) {
+	public int handle(Long battery) {
+		if (battery>=min && battery<=max) {
 			return 10;
 		}
-		return super.handle(batery);
+		return super.handle(battery);
 	}
 	
 }

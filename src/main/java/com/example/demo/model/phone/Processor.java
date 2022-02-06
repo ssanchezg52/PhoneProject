@@ -1,42 +1,39 @@
 package com.example.demo.model.phone;
 
-import java.text.DecimalFormat;
 import java.util.Objects;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 
-import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
+import com.example.demo.utiles.Utiles;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Embeddable
 public class Processor{
 	
-	private int coreNumber;
-	private String clockRate;
+	private Integer coreNumber;
+	private Float clockRate;
 	
 	public Processor() {
 		super();
 	}
 	public Processor(int coreNumber) {
 		this.coreNumber = coreNumber;
-		this.clockRate = calculateVelocity()+TypeUnitOfMeasure.PROCCESOR;
+		this.clockRate = calculateVelocity();
 	}	
-	private String calculateVelocity() {
-		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-		String format= "";
+	private Float calculateVelocity() {
+		String result = "";
 		if (coreNumber <= 4) {
-			format = decimalFormat.format(Math.random()*(2-1)+1);
+			result = String.valueOf(Math.random()*(2-1)+1);
+		}else {
+			result = String.valueOf(Math.random()*(3.5-2)+2);
 		}
-		if (coreNumber > 4) {
-			format = decimalFormat.format(Math.random()*(3.5-2)+2);
-		}
-		return format.replace(",", ".");
+		result = result.replace(",", ".");
+		Float velocityConverted = Utiles.convertNumberTwoDecimals(Float.valueOf(result));
+		return velocityConverted;
 	}
 	
 	public float calculateResult() {
-		String[] split = clockRate.split("G");
-		return Float.valueOf(split[0]) + (coreNumber * Float.valueOf(split[0]));
+		return clockRate + (coreNumber * clockRate);
 	}
 
 	public int getCoreNumber() {
@@ -45,10 +42,12 @@ public class Processor{
 	public void setCoreNumber(int coreNumber) {
 		this.coreNumber = coreNumber;
 	}
-	public String getVelocity() {
+
+	public Float getVelocity() {
 		return clockRate;
 	}
-	public void setVelocity(String velocity) {
+
+	public void setVelocity(Float velocity) {
 		this.clockRate = velocity;
 	}
 	@Override
@@ -68,7 +67,7 @@ public class Processor{
 	}
 	@Override
 	public String toString() {
-		return "[coreNumber=" + coreNumber + ", velocity=" + clockRate + TypeUnitOfMeasure.PROCCESOR+"]";
+		return "[coreNumber=" + coreNumber + ", velocity=" + clockRate +"]";
 	}
 	
 }

@@ -1,16 +1,16 @@
 package com.example.demo.model.phone;
 
-import java.text.DecimalFormat;
+import com.example.demo.utiles.Utiles;
 
 public class PriceCalculator {
 	
-	private Ram ram;
+	private Float ram;
 	private Processor processor;
-	private Screen screen;
-	private Battery battery;
+	private Float screen;
+	private Long battery;
 	private final int MULTIPLIER = 2;
 
-	public PriceCalculator(Ram ram, Processor processor, Screen screen, Battery batery) {
+	public PriceCalculator(Float ram, Processor processor, Float screen, Long batery) {
 		super();
 		this.ram = ram;
 		this.processor = processor;
@@ -18,20 +18,16 @@ public class PriceCalculator {
 		this.battery = batery;
 	}
 
-	public String calculatePrize() {
+	public Float calculatePrize() {
 		BatteryPercentageCalculator batteryPercentageCalculator = new BatteryPercentageCalculator(battery);
 		int concretePercentage = batteryPercentageCalculator.calculatePercentageBatery();
-		float capacity = ram.getCapacity() + ram.getCapacity();
-		float result = (Float.valueOf(this.processor.calculateResult()) + capacity) * Float.valueOf(this.screen.getScreenSize());
+		float capacity = ram + ram;
+		float result = (Float.valueOf(this.processor.calculateResult()) + capacity) * Float.valueOf(this.screen);
 		result += (result * concretePercentage) / 100;
 		result *= MULTIPLIER;
-		return convertNumberTwoDecimals(result);
+		return Utiles.convertNumberTwoDecimals(result);
 	}
 
-	private String convertNumberTwoDecimals(float result) {
-		DecimalFormat decimalFormat = new DecimalFormat("#.##");
-		String format = decimalFormat.format(result);
-		return format.replace(",", ".");
-	}
+	
 
 }

@@ -4,8 +4,8 @@ public class AntutuCalculator{
 	
 	private static final int MULTIPLIER = 12000;
 
-	public static long calculateAntutu(Processor processor, Ram ram) {
-		float capacity =  ram.getCapacity() + ram.getCapacity();
+	public static Long calculateAntutu(Processor processor, Float ram) {
+		float capacity =  ram + ram;
 		return (long) ((processor.calculateResult() + capacity) * MULTIPLIER);
 	}
 
