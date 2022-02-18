@@ -18,7 +18,7 @@ public class JpahPhoneProyect1Application {
 	
 	@Bean
     public CorsFilter corsFilter() {
-        System.err.println("Arrancando el Bean corsFilter");
+        System.err.println("Arrancando mi Bean corsFilter");
         UrlBasedCorsConfigurationSource urlBasedCorsConfigurationSource = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowCredentials(true);

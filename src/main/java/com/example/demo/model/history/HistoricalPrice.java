@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 import com.example.demo.model.phone.Phone;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class HistoricalPrice {
@@ -24,9 +25,9 @@ public class HistoricalPrice {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public HistoricalPrice(Phone phone_id, Float price, Date days) {
+	public HistoricalPrice(Phone phone, Float price, Date days) {
 		super();
-		this.phone = phone_id;
+		this.phone = phone;
 		this.price = price;
 		this.day = days;
 	}
@@ -38,8 +39,13 @@ public class HistoricalPrice {
 		this.price = price;
 	}
 	
-	public Phone getPhone_id() {
+	@JsonIgnore
+	public Phone getPhoneObject() {
 		return phone;
+	}
+	
+	public Long getPhone() {
+		return phone.getId();
 	}
 	public void setPhone_id(Phone phone_id) {
 		this.phone = phone_id;

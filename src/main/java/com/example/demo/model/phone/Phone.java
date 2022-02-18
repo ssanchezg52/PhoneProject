@@ -34,7 +34,7 @@ public class Phone {
 	@Column(nullable = false)
 	private Long antutu;
 	@Column(nullable = false)
-	private Float prize;
+	private Float price;
 	@OneToMany(mappedBy = "phone")
 	private List<HistoricalPrice> priceHistory;
 	public static class BuilderPhone {
@@ -45,7 +45,7 @@ public class Phone {
 		private Float screen;
 		private Long batery;
 		private Long antutu;
-		private Float prize;
+		private Float price;
 		private final int MIN_CORE = 1;
 		private final int MAX_CORE = 8;
 		private final int MIN_SCREEN = 4;
@@ -61,7 +61,7 @@ public class Phone {
 			this.batery = BatteryCalculator.calculateBatery(this.processor, this.screen);
 			this.antutu = AntutuCalculator.calculateAntutu(this.processor, this.ram);
 			PriceCalculator prizeCalculator = new PriceCalculator(this.ram, this.processor, this.screen, this.batery);
-			this.prize = prizeCalculator.calculatePrize();
+			this.price = prizeCalculator.calculatePrize();
 		}
 		
 		public Phone builder() {
@@ -97,7 +97,7 @@ public class Phone {
 		}
 
 		public Float getPrize() {
-			return prize;
+			return price;
 		}
 	}
 	
@@ -109,7 +109,7 @@ public class Phone {
 		this.screen = builderPhone.getScreen();
 		this.battery = builderPhone.getBatery();
 		this.antutu = builderPhone.getAntutu();
-		this.prize = builderPhone.getPrize();
+		this.price = builderPhone.getPrize();
 	}
 
 	public Phone() {
@@ -180,15 +180,14 @@ public class Phone {
 		this.antutu = antutu;
 	}
 
-	public Float getPrize() {
-		return this.prize;
+	public Float getPrice() {
+		return this.price;
 	}
 	
 	public void setPrice(Float price) {
-		this.prize = price;
+		this.price = price;
 	}	
 	
-	@JsonIgnore
 	public List<HistoricalPrice> getPriceHistory() {
 		return priceHistory;
 	}
@@ -199,7 +198,7 @@ public class Phone {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(antutu, battery, brand, id, model, prize, processor, ram, screen);
+		return Objects.hash(antutu, battery, brand, id, model, price, processor, ram, screen);
 	}
 
 	@Override
@@ -212,7 +211,7 @@ public class Phone {
 			return false;
 		Phone other = (Phone) obj;
 		return antutu == other.antutu && Objects.equals(battery, other.battery) && Objects.equals(brand, other.brand)
-				&& id == other.id && Objects.equals(model, other.model) && Objects.equals(prize, other.prize)
+				&& id == other.id && Objects.equals(model, other.model) && Objects.equals(price, other.price)
 				&& Objects.equals(processor, other.processor) && Objects.equals(ram, other.ram)
 				&& Objects.equals(screen, other.screen);
 	}
@@ -220,7 +219,7 @@ public class Phone {
 	@Override
 	public String toString() {
 		return "Phone [id=" + id + ", brand=" + brand + ", model=" + model + ", processor=" + processor + ", ram=" + ram
-				+ ", screen=" + screen + ", batery=" + battery + ", antutu=" + antutu + ", prize=" + prize + "]";
+				+ ", screen=" + screen + ", batery=" + battery + ", antutu=" + antutu + ", prize=" + price + "]";
 	}
 	
 }
